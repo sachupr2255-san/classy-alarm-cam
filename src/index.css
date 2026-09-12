@@ -197,16 +197,18 @@
       var(--background);
   }
 
-  .alarm-flash {
-    animation: alarm-flash 1.1s ease-in-out infinite;
+  /* Red alert tint, pulsed while the bell rings (applied to an overlay) */
+  .alarm-tint {
+    background: oklch(0.5 0.19 30);
+    animation: alarm-tint 1.1s ease-in-out infinite;
   }
-  @keyframes alarm-flash {
+  @keyframes alarm-tint {
     0%,
     100% {
-      background-color: var(--background);
+      opacity: 0.1;
     }
     50% {
-      background-color: oklch(0.93 0.05 35);
+      opacity: 0.38;
     }
   }
 

@@ -90,6 +90,7 @@ export function startBell(): BellRinger {
 
   let master: GainNode | null = null;
   let stopped = false;
+  let schedulerId: number | null = null;
 
   return {
     start: () => {
@@ -97,13 +98,30 @@ export function startBell(): BellRinger {
       master = audio.createGain();
       master.gain.value = 0.5;
       master.connect(audio.destination);
-      const begin = audio.currentTime + 0.05;
-      for (let i = 0; i < 120; i++) {
-        strike(begin + i * 0.55, master);
-      }
+
+      // Schedule strikes in batches so the bell rings indefinitely until stopped.
+      const BATCH = 48;
+      const GAP = 0.55;
+      let next = audio.currentTime + 0.05;
+      const scheduleBatch = () => {
+        if (stopped || !master) return;
+        for (let i = 0; i < BATCH; i++) {
+          strike(next, master);
+          next += GAP;
+        }
+      };
+      scheduleBatch();
+      schedulerId = window.setInterval(
+        scheduleBatch,
+        BATCH * GAP * 1000 - 750,
+      );
     },
     stop: () => {
       stopped = true;
+      if (schedulerId !== null) {
+        window.clearInterval(schedulerId);
+        schedulerId = null;
+      }
       if (master) {
         master.gain.setValueAtTime(0, audio.currentTime);
         master.disconnect();
