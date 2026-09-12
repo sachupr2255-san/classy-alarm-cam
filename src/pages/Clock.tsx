@@ -50,21 +50,26 @@ export default function Clock() {
   }, [stopRinger]);
 
   // ---- Motion trigger --------------------------------------------------------
+  // Motion only flips the phase to "ringing"; the bell itself is started in an
+  // effect below so StrictMode's double-invoked state updaters cannot ring it
+  // twice.
   const handleFrame = useCallback(
     (level: number) => {
       setMotionLevel((prev) => prev * 0.65 + level * 0.35);
       if (level > MOTION_THRESHOLD) {
-        setPhase((current) => {
-          if (current !== "watching") return current;
-          const ringer = startBell();
-          ringer.start();
-          ringerRef.current = ringer;
-          return "ringing";
-        });
+        setPhase((current) => (current === "watching" ? "ringing" : current));
       }
     },
     [],
   );
+
+  // Ring the bell whenever the phase enters "ringing".
+  useEffect(() => {
+    if (phase !== "ringing" || ringerRef.current) return;
+    const ringer = startBell();
+    ringer.start();
+    ringerRef.current = ringer;
+  }, [phase]);
 
   // ---- Clock tick ------------------------------------------------------------
   // While armed, once the set time is reached, surveillance goes live.
