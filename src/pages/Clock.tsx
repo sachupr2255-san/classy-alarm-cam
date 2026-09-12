@@ -151,13 +151,10 @@ export default function Clock() {
       </header>
 
       {/* Instrument panel */}
-      <div className="flex-1">
-        <div className="mx-auto grid w-full max-w-5xl gap-8 px-6 py-10 lg:grid-cols-[1.1fr_1fr] lg:py-14">
+      <div className="flex-1">          <div className="mx-auto grid w-full max-w-5xl gap-8 px-6 py-10 lg:grid-cols-[1.15fr_1fr] lg:py-14">
           {/* Left column: dial + controls */}
           <section className="flex flex-col items-center gap-8">
-            <AlarmDial phase={phase} alarmTime={alarmTime} watching={watching} />
-
-            <div className="w-full max-w-sm rounded-xl border border-border/80 bg-card p-5 shadow-[0_18px_40px_-24px_oklch(0.3_0.05_60/0.5)]">
+            <AlarmDial phase={phase} alarmTime={alarmTime} watching={watching} />              <div className="w-full max-w-sm rounded-xl border border-border/80 bg-card p-5 shadow-[0_22px_44px_-26px_oklch(0.3_0.05_60/0.6)]">
               <label
                 htmlFor="alarm-time"
                 className="font-sc text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground"
@@ -193,7 +190,7 @@ export default function Clock() {
                   <p className="text-xs text-muted-foreground">
                     {phase === "idle" || phase === "disarmed"
                       ? "Arm when ready at your desk"
-                      : "Flip back to stand down"}
+                      : "Flip to stand down"}
                   </p>
                 </div>
                 <ArmSwitch
@@ -219,6 +216,11 @@ export default function Clock() {
           </section>
         </div>
       </div>
+
+      {/* V1 scope note */}
+      <p className="mx-auto mt-2 max-w-2xl text-center text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70 px-6">
+        Motion after the set time starts the bell. Sound only.
+      </p>
 
       {/* Footnote */}
       <footer className="border-t border-border/70">
@@ -286,7 +288,8 @@ function StatusPlaque({
       key={statusLine}
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25 }}
+      exit={{ opacity: 0, y: 4 }}
+      transition={{ duration: 0.2 }}
       className="rounded-lg border border-border/70 bg-card px-4 py-3"
     >
       <p className="font-sc text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
@@ -296,7 +299,9 @@ function StatusPlaque({
         className={`font-display mt-1 text-lg leading-snug ${
           phase === "ringing"
             ? "font-semibold text-alarm"
-            : "italic text-foreground"
+            : phase === "watching"
+              ? "text-ink"
+              : "italic text-muted-foreground"
         }`}
       >
         {statusLine}

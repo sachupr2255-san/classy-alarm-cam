@@ -158,8 +158,11 @@ export function CameraPanel({
             <p className="font-sc text-sm font-semibold tracking-wide text-brass/80">
               Camera standing by
             </p>
+            <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-brass/60">
+              Motion after the set time rings the bell
+            </p>
             <p className="font-display text-base italic text-muted-foreground/80">
-              Start the watch — motion after the set time will ring the bell
+              Start the watch — motion after the set time rings the bell
             </p>
           </div>
         )}

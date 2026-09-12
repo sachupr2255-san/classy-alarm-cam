@@ -102,9 +102,7 @@ export default function Landing() {
               The alarm clock that{" "}
               <em className="brass-gradient-text">watches back</em>.
             </h1>
-            <p className="font-display mt-5 max-w-md text-xl italic leading-relaxed text-muted-foreground">
-              Set the time. Arm the switch. Step away from your desk — and the
-              moment you return, the bell rings. Sound only, nothing else.
+            <p className="font-display mt-5 max-w-md text-xl italic leading-relaxed text-muted-foreground">Set the time. Start the camera. Arm the switch. Step away from your desk — and the moment motion starts after your set time, the bell rings. Sound only, nothing else.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -140,12 +138,12 @@ export default function Landing() {
             {
               icon: Eye,
               title: "It watches",
-              text: "Your webcam stands guard — motion after the set time rings.",
+              text: "Your webcam stands guard — motion after the set time rings the bell.",
             },
             {
               icon: Bell,
               title: "The bell rings",
-              text: "A synthesized brass bell. Sound only, stop with a click.",
+              text: "A synthesized brass bell. Sound only — silence with a click.",
             },
           ].map(({ icon: Icon, title, text }) => (
             <div

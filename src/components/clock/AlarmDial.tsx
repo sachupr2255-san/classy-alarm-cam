@@ -115,7 +115,7 @@ export function AlarmDial({ phase, alarmTime, watching }: AlarmDialProps) {
         {watching && !ringing && (
           <span className="dot-pulse inline-block size-1.5 rounded-full bg-alarm" />
         )}
-        <span className={ringing ? "text-alarm" : ""}>
+        <span className={ringing ? "text-alarm font-semibold" : ""}>
           ALARM {alarmTime}
         </span>
       </div>

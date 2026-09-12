@@ -181,6 +181,33 @@
     color: transparent;
   }
 
+  .watch-glow {
+    animation: watch-glow 2.4s ease-in-out infinite;
+  }
+  @keyframes watch-glow {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  .paper-fade {
+    animation: paper-fade 0.5s ease-out both;
+  }
+  @keyframes paper-fade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   /* Warm parchment backdrop with soft vignette */
   .paper-vignette {
     background:
